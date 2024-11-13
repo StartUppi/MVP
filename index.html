@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meine Erste Webseite</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    #logo {
-      margin-bottom: 30px;
-    }
-    #countdown {
-      font-size: 30px;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    #countdown.finished {
-      display: none;
-    }
-    #link {
-      font-size: 20px;
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine GitHub.io Webseite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+        }
+        .logo {
+            max-width: 200px;
+        }
+        .countdown {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+        .countdown-finished {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: green;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .contact-links {
+            margin-top: 20px;
+        }
+        .contact-links a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Logo -->
-  <img id="logo" src="dein_logo.png" alt="Logo">
+    <!-- Logo -->
+    <img src="dein_logo.png" alt="Logo" class="logo">
 
-  <h1>Willkommen auf meiner Webseite!</h1>
-  <p>Dies ist eine einfache Webseite mit einem Countdown.</p>
+    <!-- Willkommen Text -->
+    <h1>Willkommen</h1>
 
-  <!-- Countdown Anzeige -->
-  <div id="countdown"></div>
+    <!-- Beschreibung -->
+    <p>Dies ist eine einfache Landingpage, die als MVP dient. Hier findest du mehr Informationen über uns und unsere Webseite.</p>
 
-  <!-- Link zur offiziellen Webseite, der nach Countdown erscheint -->
-  <div id="link">
-    <p>Der Countdown ist abgelaufen! <a href="https://www.deine-offizielle-webseite.com" target="_blank">Besuche die offizielle Webseite</a></p>
-  </div>
+    <!-- Kontaktinformationen -->
+    <div class="contact-links">
+        <p>Kontakt:</p>
+        <a href="mailto:deine-email@example.com">E-Mail</a>
+        <a href="https://www.instagram.com/deinprofil" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/deinprofil" target="_blank">LinkedIn</a>
+    </div>
 
-  <script>
-    // Zielzeit für den Countdown (01.03.2025 18:00:00)
-    const targetDate = new Date("March 1, 2025 18:00:00").getTime();
+    <!-- Countdown -->
+    <div class="countdown" id="countdown"></div>
+    <div class="countdown-finished" id="countdown-finished">
+        <p>Die Zeit ist abgelaufen! Besuche jetzt die <a href="https://www.officialwebsite.com" target="_blank">offizielle Webseite</a>.</p>
+    </div>
 
-    // Funktion, um den Countdown zu berechnen und anzuzeigen
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+    <script>
+        // Zielzeit für den Countdown (1. März 2025, 18:00 Uhr)
+        const targetDate = new Date("Mar 1, 2025 18:00:00").getTime();
 
-      // Berechne Tage, Stunden, Minuten und Sekunden
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Update der Zeit jedes 1 Sekunde
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
 
-      // Zeige den Countdown an
-      document.getElementById("countdown").innerHTML = `${days} Tage ${hours} Stunden ${minutes} Minuten ${seconds} Sekunden`;
+            // Berechne Tage, Stunden, Minuten und Sekunden
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-      // Wenn der Countdown abgelaufen ist
-      if (distance < 0) {
-        document.getElementById("countdown").classList.add("finished");
-        document.getElementById("link").style.display = "block"; // Zeige den Link
-      }
-    }
+            // Zeige den Countdown an
+            document.getElementById("countdown").innerHTML = days + " Tage " + hours + " Stunden " + minutes + " Minuten " + seconds + " Sekunden";
 
-    // Aktualisiere den Countdown alle 1000ms (1 Sekunde)
-    setInterval(updateCountdown, 1000);
-  </script>
+            // Wenn die Zeit abgelaufen ist
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("countdown-finished").style.display = "block";
+            }
+        }, 1000);
+    </script>
 
 </body>
 </html>
