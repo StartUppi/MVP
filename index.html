@@ -34,7 +34,7 @@
   <img id="logo" src="dein_logo.png" alt="Logo">
 
   <h1>Willkommen auf meiner Webseite!</h1>
-  <p>Dies ist meine einfache Webseite mit dem Countdown zum Launch.</p>
+  <p>Dies ist eine einfache Webseite mit einem Countdown.</p>
 
   <!-- Countdown Anzeige -->
   <div id="countdown"></div>
@@ -45,21 +45,22 @@
   </div>
 
   <script>
-    // Zielzeit für den Countdown (01.03.2025 18:00:00)
-    const targetDate = new Date("March 1, 2025 18:00:00").getTime();
+    // Zielzeit für den Countdown (01.03.2025 00:00:00)
+    const targetDate = new Date("March 1, 2025 00:00:00").getTime();
 
     // Funktion, um den Countdown zu berechnen und anzuzeigen
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-      // Berechne Stunden, Minuten und Sekunden
-      const hours = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const minutes = Math.floor((distance % (1000 * 60)) / 1000);
-      const seconds = Math.floor((distance % 1000) / 100);
+      // Berechne Tage, Stunden, Minuten und Sekunden
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Zeige den Countdown an
-      document.getElementById("countdown").innerHTML = `${hours} Stunden ${minutes} Minuten ${seconds} Sekunden`;
+      document.getElementById("countdown").innerHTML = `${days} Tage ${hours} Stunden ${minutes} Minuten ${seconds} Sekunden`;
 
       // Wenn der Countdown abgelaufen ist
       if (distance < 0) {
