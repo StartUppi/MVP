@@ -4,9 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meine Erste Webseite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #logo {
+      margin-bottom: 30px;
+    }
+    #countdown {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    #countdown.finished {
+      display: none;
+    }
+    #link {
+      font-size: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Logo -->
+  <img id="logo" src="mein_logo.png" alt="Logo">
+
   <h1>Willkommen auf meiner Webseite!</h1>
-  <p>Dies ist eine einfache Webseite, die ich als MVP erstellt habe.</p>
+  <p>Dies ist meine einfache Webseite mit dem Countdown zum Launch.</p>
+
+  <!-- Countdown Anzeige -->
+  <div id="countdown"></div>
+
+  <!-- Link zur offiziellen Webseite, der nach Countdown erscheint -->
+  <div id="link">
+    <p>Der Countdown ist abgelaufen! <a href="https://www.deine-offizielle-webseite.com" target="_blank">Besuche die offizielle Webseite</a></p>
+  </div>
+
+  <script>
+    // Zielzeit für den Countdown (01.03.2025 18:00:00)
+    const targetDate = new Date("March 1, 2025 18:00:00").getTime();
+
+    // Funktion, um den Countdown zu berechnen und anzuzeigen
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      // Berechne Stunden, Minuten und Sekunden
+      const hours = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const minutes = Math.floor((distance % (1000 * 60)) / 1000);
+      const seconds = Math.floor((distance % 1000) / 100);
+
+      // Zeige den Countdown an
+      document.getElementById("countdown").innerHTML = `${hours} Stunden ${minutes} Minuten ${seconds} Sekunden`;
+
+      // Wenn der Countdown abgelaufen ist
+      if (distance < 0) {
+        document.getElementById("countdown").classList.add("finished");
+        document.getElementById("link").style.display = "block"; // Zeige den Link
+      }
+    }
+
+    // Aktualisiere den Countdown alle 1000ms (1 Sekunde)
+    setInterval(updateCountdown, 1000);
+  </script>
+
 </body>
 </html>
